@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">MusketeerBubbleSort</string>
+    <string name="app_name">Musketeer Bubble Sort</string>
+    <string name="basicGreeting">Hello World! i really like to greet people.</string>
+    <string name="edit_message">Enter a message plz</string>
+    <string name="button_send">Send</string>
 </resources>
