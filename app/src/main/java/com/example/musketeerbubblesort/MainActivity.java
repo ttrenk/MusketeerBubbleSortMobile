@@ -23,30 +23,51 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, DisplaySortedInformationActivity.class);
         EditText editText = (EditText) findViewById(R.id.userInput);
         String message = editText.getText().toString();
+
+        //Convert user's input: string --> array of integers
         int[] unsortedInput = Arrays.stream(message.split(" ")).mapToInt(Integer::parseInt).toArray();
-        BubbleSortAlgorithm.bubbleSort(unsortedInput, unsortedInput.length);
-        String sortedMessage = Arrays.toString(unsortedInput);
+
+        //Sort the array and display the output on the next screen as a string
+        String sortedMessage= BubbleSortAlgorithm.bubbleSort(unsortedInput, unsortedInput.length);
         intent.putExtra(DATA_INPUT_MESSAGE, sortedMessage);
         startActivity(intent);
     }
 
     public static class BubbleSortAlgorithm {
-        public static void bubbleSort(int[] unsortedValues, int numValues)
+        public static String bubbleSort(int[] unsortedValues, int numValues)
         {
+            /**
+             * Iterates through the unsorted data to return a string that outputs the sorted data
+             * @param unsortedValues The user input in the form of an array of integers
+             * @param numValues The length of the array
+             * @return The string containing all of the sorting iterations and intermediate steps
+            **/
+            StringBuilder sortingIteration = new StringBuilder();
+            sortingIteration.append("Input Array: ").append(Arrays.toString(unsortedValues)).append("\n")
+                            .append("BubbleSort (Intermediate Steps)\n");
             int current = 0;
             while (current < numValues-1)
             {
-                bubbleUp(unsortedValues, current, numValues-1);
+                sortingIteration.append(bubbleUp(unsortedValues, current, numValues - 1)).append("\n");
                 current++;
             }
+            return sortingIteration.toString();
         }
-
-        public static void bubbleUp(int[] unsortedValues, int startIndex,
-                             int endIndex)
+        public static String bubbleUp(int[] unsortedValues, int startIndex, int endIndex)
         {
+            /**
+             * Iterates through the array to return a string that outputs each intermediate sorting step
+             * @param unsortedValues The user input in the form of an array of integers
+             * @param startIndex The first element of the array
+             * @param endIndex The last element of the array
+             * @return The string containing all of the intermediate sorting steps of the iteration
+             */
+            StringBuilder sortingIteration = new StringBuilder();
+            sortingIteration.append(Arrays.toString(unsortedValues)).append("\n");
             int temp = 0;
             for (int index = endIndex; index > startIndex; index--)
             {
+                sortingIteration.append(Arrays.toString(unsortedValues)).append("\n");
                 if (unsortedValues[index] < unsortedValues[index-1])
                 {
                     temp = unsortedValues[index];
@@ -54,8 +75,7 @@ public class MainActivity extends AppCompatActivity {
                     unsortedValues[index-1] = temp;
                 }
             }
+            return sortingIteration.toString();
         }
     }
-
-
 }
