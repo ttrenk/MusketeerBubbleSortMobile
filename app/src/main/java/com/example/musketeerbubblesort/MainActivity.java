@@ -19,8 +19,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void QuitApp(View view) {
-        MainActivity.this.finish();
-        System.exit(0);
+        this.finishAffinity();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -38,15 +37,16 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
     public static class BubbleSortAlgorithm {
+         /*
+          * Iterates through the unsorted data to return a string that outputs the sorted data
+          * @param unsortedValues The user input in the form of an array of integers
+          * @param numValues The length of the array
+          * @return The string containing all of the sorting iterations and intermediate steps
+          */
         public static String bubbleSort(int[] unsortedValues, int numValues)
         {
-            /**
-             * Iterates through the unsorted data to return a string that outputs the sorted data
-             * @param unsortedValues The user input in the form of an array of integers
-             * @param numValues The length of the array
-             * @return The string containing all of the sorting iterations and intermediate steps
-            **/
             StringBuilder sortingIteration = new StringBuilder();
             sortingIteration.append("Input Array: ").append(Arrays.toString(unsortedValues)).append("\n")
                             .append("BubbleSort (Intermediate Steps)\n");
@@ -58,15 +58,15 @@ public class MainActivity extends AppCompatActivity {
             }
             return sortingIteration.toString();
         }
+        /*
+         * Iterates through the array to return a string that outputs each intermediate sorting step
+         * @param unsortedValues The user input in the form of an array of integers
+         * @param startIndex The first element of the array
+         * @param endIndex The last element of the array
+         * @return The string containing all of the intermediate sorting steps of the iteration
+         */
         public static String bubbleUp(int[] unsortedValues, int startIndex, int endIndex)
         {
-            /**
-             * Iterates through the array to return a string that outputs each intermediate sorting step
-             * @param unsortedValues The user input in the form of an array of integers
-             * @param startIndex The first element of the array
-             * @param endIndex The last element of the array
-             * @return The string containing all of the intermediate sorting steps of the iteration
-             */
             StringBuilder sortingIteration = new StringBuilder();
             sortingIteration.append(Arrays.toString(unsortedValues)).append("\n");
             int temp = 0;

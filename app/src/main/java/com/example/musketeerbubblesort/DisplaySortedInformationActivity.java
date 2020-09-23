@@ -22,7 +22,6 @@ public class DisplaySortedInformationActivity extends AppCompatActivity {
 
     }
     public void QuitApp(View view) {
-        DisplaySortedInformationActivity.this.finish();
-        System.exit(0);
+        this.finishAffinity();
     }
 }
