@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class DisplaySortedInformationActivity extends AppCompatActivity {
@@ -19,5 +20,9 @@ public class DisplaySortedInformationActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.displaySortedInformationTextView);
         textView.setText(message);
 
+    }
+    public void QuitApp(View view) {
+        DisplaySortedInformationActivity.this.finish();
+        System.exit(0);
     }
 }

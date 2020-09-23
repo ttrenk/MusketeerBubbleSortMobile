@@ -18,6 +18,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    public void QuitApp(View view) {
+        MainActivity.this.finish();
+        System.exit(0);
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void sortInputDataFromUser(View view) {
         Intent intent = new Intent(this, DisplaySortedInformationActivity.class);
