@@ -52,7 +52,8 @@ public class DisplaySortedInformationActivity extends AppCompatActivity {
         public static SpannableStringBuilder bubbleSort(int[] unsortedValues, int numValues)
         {
             SpannableStringBuilder sortingIteration = new SpannableStringBuilder();
-            sortingIteration.append("Input Array: ").append(Arrays.toString(unsortedValues)).append("\n")
+            sortingIteration.append("Input Array: ").append(Arrays.toString(unsortedValues)
+                    .replaceAll("\\[|\\]|,", "")).append("\n\n")
                     .append("BubbleSort (Intermediate Steps)\n");
             int current = 0;
             while (current < numValues-1)
@@ -60,7 +61,12 @@ public class DisplaySortedInformationActivity extends AppCompatActivity {
                 sortingIteration.append(bubbleUp(unsortedValues, current, numValues - 1)).append("\n");
                 current++;
             }
-            return sortingIteration;
+            sortingIteration.append("Sorted Array: ");
+            SpannableStringBuilder finalSortedResult = new SpannableStringBuilder(Arrays.toString(unsortedValues)
+                    .replaceAll("\\[|\\]|,", "")).append("\n");
+            finalSortedResult.setSpan(new ForegroundColorSpan(Color.RED), 0, unsortedValues.length * 2,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return sortingIteration.append(finalSortedResult);
         }
         /*
          * Iterates through the array to return a string that outputs each intermediate sorting step
@@ -74,22 +80,27 @@ public class DisplaySortedInformationActivity extends AppCompatActivity {
             // Initialize SpannableStringBuilder
             SpannableStringBuilder spanningString = new SpannableStringBuilder();
 
-            // Grab initial array
-            spanningString.append(Arrays.toString(unsortedValues).replaceAll("\\[|\\]|,", "")).append("\n");
+            // Grab the initial array of each pass
+            spanningString.append(Arrays.toString(unsortedValues)
+                    .replaceAll("\\[|\\]|,", "")).append("\n");
 
-            // Style text
-            spanningString.setSpan(new ForegroundColorSpan(Color.RED), 0, startIndex * 2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            spanningString.setSpan(new UnderlineSpan(), startIndex * 2, endIndex * 2 + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            // Stylize the initial array of each pass
+            spanningString.setSpan(new ForegroundColorSpan(Color.RED), 0, startIndex * 2,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spanningString.setSpan(new UnderlineSpan(), startIndex * 2, endIndex * 2 + 1,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
             int temp = 0;
             for (int index = endIndex; index > startIndex; index--)
             {
-
                 // Grab array and underline numbers being switched
-                SpannableStringBuilder sortingLoopStep = new SpannableStringBuilder(Arrays.toString(unsortedValues).replaceAll("\\[|\\]|,", "")).append("\n");
-                sortingLoopStep.setSpan(new UnderlineSpan(), index * 2 - 2, index * 2 + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                SpannableStringBuilder sortingLoopStep = new SpannableStringBuilder(Arrays.toString(unsortedValues)
+                        .replaceAll("\\[|\\]|,", "")).append("\n");
+                sortingLoopStep.setSpan(new UnderlineSpan(), index * 2 - 2, index * 2 + 1,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 // Bold the current number that is "bubbling up"
-                sortingLoopStep.setSpan(new StyleSpan(Typeface.BOLD), index * 2, index * 2 + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                sortingLoopStep.setSpan(new StyleSpan(Typeface.BOLD), index * 2, index * 2 + 1,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 spanningString.append(sortingLoopStep);
 
                 // Switch values if end value is smaller than front value
@@ -101,9 +112,12 @@ public class DisplaySortedInformationActivity extends AppCompatActivity {
                 }
             }
             // Grab final array iteration then style text
-            SpannableStringBuilder finalArrayStep = new SpannableStringBuilder(Arrays.toString(unsortedValues).replaceAll("\\[|\\]|,", "")).append("\n");
-            finalArrayStep.setSpan(new StyleSpan(Typeface.BOLD), startIndex * 2, startIndex * 2 + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            finalArrayStep.setSpan(new ForegroundColorSpan(Color.RED), 0, startIndex * 2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            SpannableStringBuilder finalArrayStep = new SpannableStringBuilder(Arrays.toString(unsortedValues)
+                    .replaceAll("\\[|\\]|,", "")).append("\n");
+            finalArrayStep.setSpan(new StyleSpan(Typeface.BOLD), startIndex * 2, startIndex * 2 + 1,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            finalArrayStep.setSpan(new ForegroundColorSpan(Color.RED), 0, startIndex * 2,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             spanningString.append(finalArrayStep);
             return spanningString;
         }
