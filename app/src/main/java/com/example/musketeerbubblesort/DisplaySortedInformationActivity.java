@@ -74,7 +74,7 @@ public class DisplaySortedInformationActivity extends AppCompatActivity {
             // Initialize SpannableStringBuilder
             SpannableStringBuilder spanningString = new SpannableStringBuilder();
 
-            // Grab initial array and underline sections being modified
+            // Grab initial array
             spanningString.append(Arrays.toString(unsortedValues).replaceAll("\\[|\\]|,", "")).append("\n");
 
             // Style text
