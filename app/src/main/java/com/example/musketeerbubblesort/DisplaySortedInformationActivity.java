@@ -1,8 +1,16 @@
 package com.example.musketeerbubblesort;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.TextView;
 import androidx.annotation.RequiresApi;
@@ -24,7 +32,7 @@ public class DisplaySortedInformationActivity extends AppCompatActivity {
         int[] unsortedInput = Arrays.stream(message.split(" ")).mapToInt(Integer::parseInt).toArray();
 
         //Sort the array and display the output on the next screen as a string
-        String sortedMessage= BubbleSortAlgorithm.bubbleSort(unsortedInput, unsortedInput.length);
+        SpannableStringBuilder sortedMessage= BubbleSortAlgorithm.bubbleSort(unsortedInput, unsortedInput.length);
 
         TextView textView = findViewById(R.id.displaySortedInformationTextView);
         textView.setText(sortedMessage);
@@ -41,9 +49,9 @@ public class DisplaySortedInformationActivity extends AppCompatActivity {
          * @param numValues The length of the array
          * @return The string containing all of the sorting iterations and intermediate steps
          */
-        public static String bubbleSort(int[] unsortedValues, int numValues)
+        public static SpannableStringBuilder bubbleSort(int[] unsortedValues, int numValues)
         {
-            StringBuilder sortingIteration = new StringBuilder();
+            SpannableStringBuilder sortingIteration = new SpannableStringBuilder();
             sortingIteration.append("Input Array: ").append(Arrays.toString(unsortedValues)).append("\n")
                     .append("BubbleSort (Intermediate Steps)\n");
             int current = 0;
@@ -52,7 +60,7 @@ public class DisplaySortedInformationActivity extends AppCompatActivity {
                 sortingIteration.append(bubbleUp(unsortedValues, current, numValues - 1)).append("\n");
                 current++;
             }
-            return sortingIteration.toString();
+            return sortingIteration;
         }
         /*
          * Iterates through the array to return a string that outputs each intermediate sorting step
@@ -61,14 +69,30 @@ public class DisplaySortedInformationActivity extends AppCompatActivity {
          * @param endIndex The last element of the array
          * @return The string containing all of the intermediate sorting steps of the iteration
          */
-        public static String bubbleUp(int[] unsortedValues, int startIndex, int endIndex)
+        public static SpannableStringBuilder bubbleUp(int[] unsortedValues, int startIndex, int endIndex)
         {
-            StringBuilder sortingIteration = new StringBuilder();
-            sortingIteration.append(Arrays.toString(unsortedValues)).append("\n");
+            // Initialize SpannableStringBuilder
+            SpannableStringBuilder spanningString = new SpannableStringBuilder();
+
+            // Grab initial array and underline sections being modified
+            spanningString.append(Arrays.toString(unsortedValues).replaceAll("\\[|\\]|,", "")).append("\n");
+
+            // Style text
+            spanningString.setSpan(new ForegroundColorSpan(Color.RED), 0, startIndex * 2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spanningString.setSpan(new UnderlineSpan(), startIndex * 2, endIndex * 2 + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
             int temp = 0;
             for (int index = endIndex; index > startIndex; index--)
             {
-                sortingIteration.append(Arrays.toString(unsortedValues)).append("\n");
+
+                // Grab array and underline numbers being switched
+                SpannableStringBuilder sortingLoopStep = new SpannableStringBuilder(Arrays.toString(unsortedValues).replaceAll("\\[|\\]|,", "")).append("\n");
+                sortingLoopStep.setSpan(new UnderlineSpan(), index * 2 - 2, index * 2 + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                // Bold the current number that is "bubbling up"
+                sortingLoopStep.setSpan(new StyleSpan(Typeface.BOLD), index * 2, index * 2 + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                spanningString.append(sortingLoopStep);
+
+                // Switch values if end value is smaller than front value
                 if (unsortedValues[index] < unsortedValues[index-1])
                 {
                     temp = unsortedValues[index];
@@ -76,7 +100,12 @@ public class DisplaySortedInformationActivity extends AppCompatActivity {
                     unsortedValues[index-1] = temp;
                 }
             }
-            return sortingIteration.toString();
+            // Grab final array iteration then style text
+            SpannableStringBuilder finalArrayStep = new SpannableStringBuilder(Arrays.toString(unsortedValues).replaceAll("\\[|\\]|,", "")).append("\n");
+            finalArrayStep.setSpan(new StyleSpan(Typeface.BOLD), startIndex * 2, startIndex * 2 + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            finalArrayStep.setSpan(new ForegroundColorSpan(Color.RED), 0, startIndex * 2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spanningString.append(finalArrayStep);
+            return spanningString;
         }
     }
 }
