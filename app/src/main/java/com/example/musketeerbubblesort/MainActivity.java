@@ -33,49 +33,45 @@ public class MainActivity extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.userInput);
         Button submit = (Button) findViewById(R.id.button);
         String message = editText.getText().toString();
-        int[] unsortedInput = Arrays.stream(message.split(" ")).mapToInt(Integer::parseInt).toArray();
-        /*
-         *  if statements that will output a user error when the array inputted are not not single
-         * integer between the size of 3 and 8
-         * @param unsortedInput The user input in the form of an array of integers
-         * @param editText: The length of the array
-         */
-        boolean singleDigit = true;
-        for (int i = 0; i < unsortedInput.length; i++)
-        {
-           if (unsortedInput[i] > 9)
-            {
-                singleDigit =false;
-           }
-            else if (unsortedInput[i] < 0)
-            {
-                singleDigit =false;
-            }
-        }
+        try {
 
-        {
-             if (editText.getText().length() == 0) {
+            if (message.isEmpty() || message == null ) {
                 editText.setError("Please refer to the directions for the proper format to input text");
             }
-            else if (unsortedInput.length > 8) {
-                editText.setError("Please refer to the directions for the proper format to input text");
-            }
-            else if (unsortedInput.length < 3) {
-                editText.setError("Please refer to the directions for the proper format to input text");
-            }
-            else if (!message.contains("")) {
-                editText.setError("Please refer to the directions for the proper format to input text");
-            }
-            else if (message.contains(",")) {
-                editText.setError("Please refer to the directions for the proper format to input text") ;
-            }
-             else if (!singleDigit) {
-                 editText.setError("Please refer to the directions for the proper format to input text");
-             }
             else {
-                intent.putExtra(DATA_INPUT_MESSAGE, message);
-                startActivity(intent);
+
+
+                int[] unsortedInput = Arrays.stream(message.split(" ")).mapToInt(Integer::parseInt).toArray();
+
+                boolean singleDigit = true;
+                for (int i = 0; i < unsortedInput.length; i++) {
+                    if (unsortedInput[i] > 9 || unsortedInput[i] < 0) {
+                        singleDigit = false;
+                    }
+                }
+
+
+                   if (editText.getText().length() == 0) {
+                    editText.setError("Please refer to the directions for the proper format to input text");
+                } else if (unsortedInput.length > 8) {
+                    editText.setError("Please refer to the directions for the proper format to input text");
+                } else if (unsortedInput.length < 3) {
+                    editText.setError("Please refer to the directions for the proper format to input text");
+                } else if (!message.contains("")) {
+                    editText.setError("Please refer to the directions for the proper format to input text");
+                } else if (message.contains(",")) {
+                    editText.setError("Please refer to the directions for the proper format to input text");
+                } else if (!singleDigit) {
+                    editText.setError("Please refer to the directions for the proper format to input text");
+                } else {
+
+                    intent.putExtra(DATA_INPUT_MESSAGE, message);
+                    startActivity(intent);
+                }
             }
+        } catch (Exception e)
+        {
+            editText.setError("Please contact Musketeer Bubblesort support team for assistance");
         }
     }
 }
