@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">MusketeerBubbleSort</string>
-    <string name="edit_message">Enter Number Array</string>
     <string name="button_submit">Sort</string>
 </resources>
