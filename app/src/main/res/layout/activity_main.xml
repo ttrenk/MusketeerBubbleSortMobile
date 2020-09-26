@@ -51,7 +51,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User Guide: \nPlease enter 3 to 8 integers which you would like sorted.\nE.g. '5 8 1' Also please only enter integers between 0-9."
+        android:text="Directions: \nPlease enter 3 to 8  single integers which you would like sorted.\nE.g. '5 8 1'."
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.441"
