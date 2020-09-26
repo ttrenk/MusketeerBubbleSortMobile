@@ -1,5 +1,7 @@
 package com.example.musketeerbubblesort;
 
+import android.provider.ContactsContract;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -11,7 +13,7 @@ import static org.junit.Assert.assertArrayEquals;
  */
 class BubbleSortTest {
 
-    private MainActivity.BubbleSortAlgorithm sorter = new MainActivity.BubbleSortAlgorithm();
+    private DisplaySortedInformationActivity.BubbleSortAlgorithm sorter = new DisplaySortedInformationActivity.BubbleSortAlgorithm();
 
     @Test
     public void emptyArrayDoesNothing() {
